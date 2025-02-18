@@ -1,0 +1,22 @@
+export const stores = [
+    { name: "Amazon", domain: "amazon.com" },
+    { name: "Walmart", domain: "walmart.com" },
+    { name: "Target", domain: "target.com" },
+    { name: "eBay", domain: "ebay.com" },
+    { name: "Best Buy", domain: "bestbuy.com" },
+    { name: "Shein", domain: "shein.com" },
+    { name: "Fashion Nova", domain: "fashionnova.com" },
+    { name: "Home Depot", domain: "homedepot.com" },
+    { name: "Macy's", domain: "macys.com" },
+    { name: "Etsy", domain: "etsy.com" },
+    { name: "Kohl's", domain: "kohls.com" },
+    { name: "Wayfair", domain: "wayfair.com" },
+    { name: "Costco", domain: "costco.com" },
+    { name: "Nike", domain: "nike.com" },
+    { name: "Sephora", domain: "sephora.com" },
+    { name: "Apple", domain: "apple.com" },
+    { name: "Nordstrom", domain: "nordstrom.com" },
+    { name: "Staples", domain: "staples.com" },
+    { name: "CVS", domain: "cvs.com" },
+    { name: "Walgreens", domain: "walgreens.com" }
+  ];

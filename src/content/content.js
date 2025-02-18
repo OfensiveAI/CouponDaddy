@@ -77,6 +77,40 @@ const COUPON_FIELD_SELECTORS = [
     }
   };
   
+  // Add debounce utility for performance
+  const debounce = (func, wait) => {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  };
+  
+  // Optimize checkout detection with more specific patterns
+  const CHECKOUT_PATTERNS = {
+    urls: ['/checkout', '/cart', '/basket', '/payment', '/order'],
+    terms: ['checkout', 'cart', 'basket', 'payment', 'order'],
+    selectors: [
+      'form[action*="checkout"]',
+      'form[action*="cart"]',
+      'div[id*="checkout"]',
+      '.checkout-container',
+      '#cart-container'
+    ]
+  };
+  
+  // Track application state
+  const state = {
+    isCheckoutPage: false,
+    lastCheck: 0,
+    appliedCoupons: new Set(),
+    pendingCheck: false
+  };
+  
   // Track detected elements
   let detectedElements = {
     couponField: null,
@@ -244,31 +278,35 @@ const COUPON_FIELD_SELECTORS = [
   }
   
   /**
-   * Detects if the current page is a checkout page
+   * Enhanced checkout page detection
    */
   function detectCheckoutPage() {
-    // Get the current hostname
+    // Prevent multiple rapid checks
+    if (Date.now() - state.lastCheck < 2000) return;
+    state.lastCheck = Date.now();
+
     const hostname = window.location.hostname.replace('www.', '');
-    const pathname = window.location.pathname;
+    const pathname = window.location.pathname.toLowerCase();
     
-    // Check if the URL contains checkout-related paths
-    const isCheckout = 
-      pathname.includes('/checkout') ||
-      pathname.includes('/cart') ||
-      pathname.includes('/payment') ||
-      pathname.includes('/order') ||
-      document.title.toLowerCase().includes('checkout') ||
-      document.title.toLowerCase().includes('cart');
+    // Check URL patterns
+    const isCheckoutUrl = CHECKOUT_PATTERNS.urls.some(pattern => pathname.includes(pattern));
     
-    if (isCheckout) {
-      // Wait for page to be fully loaded and then find coupon elements
-      if (document.readyState === 'complete') {
-        findCouponElements();
-      } else {
-        window.addEventListener('load', findCouponElements);
-      }
+    // Check page title
+    const pageTitle = document.title.toLowerCase();
+    const hasCheckoutTerms = CHECKOUT_PATTERNS.terms.some(term => pageTitle.includes(term));
+    
+    // Check DOM elements
+    const hasCheckoutElements = CHECKOUT_PATTERNS.selectors.some(selector => 
+      document.querySelector(selector) !== null
+    );
+
+    state.isCheckoutPage = isCheckoutUrl || hasCheckoutTerms || hasCheckoutElements;
+
+    if (state.isCheckoutPage) {
+      // Debounced element detection
+      debouncedFindElements();
       
-      // Notify background script that we're on a checkout page
+      // Notify background script
       chrome.runtime.sendMessage({
         action: 'checkoutPageDetected',
         url: window.location.href,
@@ -276,6 +314,17 @@ const COUPON_FIELD_SELECTORS = [
       });
     }
   }
+
+  // Create debounced version of findCouponElements
+  const debouncedFindElements = debounce(() => {
+    if (!state.pendingCheck) {
+      state.pendingCheck = true;
+      requestAnimationFrame(() => {
+        findCouponElements();
+        state.pendingCheck = false;
+      });
+    }
+  }, 250);
   
   /**
    * Finds coupon input fields and apply buttons on the page
@@ -723,51 +772,35 @@ const COUPON_FIELD_SELECTORS = [
   }
   
   /**
-   * Sets up a mutation observer to detect dynamically added elements
+   * Optimized DOM observer
    */
   function observeDOMChanges() {
-    // Create a MutationObserver to watch for DOM changes
     const observer = new MutationObserver((mutations) => {
-      // Only check for elements if significant changes happened
-      let shouldCheck = false;
-      
-      for (const mutation of mutations) {
-        // Check if nodes were added
-        if (mutation.addedNodes.length > 0) {
-          for (const node of mutation.addedNodes) {
-            if (node.nodeType === Node.ELEMENT_NODE) {
-              // Check if added element might be a form or checkout section
-              if (node.tagName === 'FORM' || 
-                  node.tagName === 'DIV' && (
-                    node.className.includes('checkout') ||
-                    node.className.includes('cart') ||
-                    node.className.includes('payment') ||
-                    node.id.includes('checkout') ||
-                    node.id.includes('cart') ||
-                    node.id.includes('payment')
-                  )) {
-                shouldCheck = true;
-                break;
-              }
-            }
-          }
-        }
-        
-        if (shouldCheck) break;
-      }
-      
-      if (shouldCheck && !detectedElements.detected) {
-        // Wait a bit for the DOM to stabilize
-        setTimeout(() => {
-          findCouponElements();
-        }, 500);
+      // Check if mutations are relevant
+      const hasRelevantChanges = mutations.some(mutation => {
+        return Array.from(mutation.addedNodes).some(node => {
+          if (node.nodeType !== Node.ELEMENT_NODE) return false;
+          const elem = node;
+          return (
+            elem.tagName === 'FORM' ||
+            elem.matches(COUPON_FIELD_SELECTORS.join(',')) ||
+            elem.matches(APPLY_BUTTON_SELECTORS.join(',')) ||
+            elem.querySelector(COUPON_FIELD_SELECTORS.join(','))
+          );
+        });
+      });
+
+      if (hasRelevantChanges) {
+        debouncedFindElements();
       }
     });
-    
-    // Start observing
+
+    // Optimize observation config
     observer.observe(document.body, {
       childList: true,
-      subtree: true
+      subtree: true,
+      attributes: false,
+      characterData: false
     });
   }
   
