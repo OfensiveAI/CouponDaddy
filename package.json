@@ -1,0 +1,17 @@
+{
+    "name": "coupondaddy",
+    "version": "1.0.0",
+    "description": "A Chrome extension that finds and applies the best coupon codes.",
+    "main": "background.js",
+    "scripts": {
+      "build": "echo 'Building CouponDaddy Extension...'",
+      "start": "echo 'Load this extension in Chrome manually.'"
+    },
+    "keywords": ["chrome-extension", "coupons", "shopping"],
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+      "firebase": "^10.6.0"
+    }
+  }
+  

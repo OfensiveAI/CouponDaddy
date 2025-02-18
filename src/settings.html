@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CouponDaddy Settings</title>
+  <link rel="stylesheet" href="settings.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+  <div class="settings-container">
+    <header class="settings-header">
+      <div class="logo">
+        <img src="../assets/icons/icon48.png" alt="CouponDaddy Logo">
+        <h1>CouponDaddy</h1>
+      </div>
+      <div class="version">v1.0.0</div>
+    </header>
+
+    <main class="settings-main">
+      <section class="settings-section">
+        <h2>General Settings</h2>
+        
+        <div class="settings-option">
+          <div class="option-info">
+            <div class="option-title">
+              <i class="fas fa-magic"></i>
+              <span>Auto-Apply Coupons</span>
+            </div>
+            <div class="option-description">
+              Automatically applies the best coupon when checking out
+            </div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="autoApply">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="settings-option">
+          <div class="option-info">
+            <div class="option-title">
+              <i class="fas fa-bell"></i>
+              <span>Show Notifications</span>
+            </div>
+            <div class="option-description">
+              Display notifications when coupons are found or applied
+            </div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="notifications">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="settings-option">
+          <div class="option-info">
+            <div class="option-title">
+              <i class="fas fa-moon"></i>
+              <span>Dark Mode</span>
+            </div>
+            <div class="option-description">
+              Use dark theme for CouponDaddy interface
+            </div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="darkMode">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <h2>Privacy & Data</h2>
+        
+        <div class="settings-option">
+          <div class="option-info">
+            <div class="option-title">
+              <i class="fas fa-chart-pie"></i>
+              <span>Usage Statistics</span>
+            </div>
+            <div class="option-description">
+              Help improve CouponDaddy by sharing anonymous usage data
+            </div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="usageStats">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="data-control">
+          <button id="clearDataBtn" class="secondary-button">
+            <i class="fas fa-trash-alt"></i> Clear Saved Data
+          </button>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <h2>Advanced Settings</h2>
+        
+        <div class="settings-option">
+          <div class="option-info">
+            <div class="option-title">
+              <i class="fas fa-database"></i>
+              <span>Load Coupons in Background</span>
+            </div>
+            <div class="option-description">
+              Pre-load coupons for faster checkout experience
+            </div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="preloadCoupons">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="settings-option">
+          <div class="option-info">
+            <div class="option-title">
+              <i class="fas fa-robot"></i>
+              <span>Use Claude AI for Analysis</span>
+            </div>
+            <div class="option-description">
+              Leverage AI to find the absolute best coupons
+            </div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="useClaudeAI">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </section>
+    </main>
+
+    <footer class="settings-footer">
+      <div class="actions">
+        <button id="resetBtn" class="text-button">
+          Reset to Defaults
+        </button>
+        <button id="saveBtn" class="primary-button">
+          <i class="fas fa-save"></i> Save Settings
+        </button>
+      </div>
+      <div class="copyright">
+        &copy; 2025 CouponDaddy | <a href="https://coupondaddy.example.com/privacy" target="_blank">Privacy Policy</a>
+      </div>
+    </footer>
+  </div>
+
+  <div id="saveNotification" class="save-notification">
+    <i class="fas fa-check-circle"></i> Settings saved successfully!
+  </div>
+
+  <script src="settings.js"></script>
+</body>
+</html>

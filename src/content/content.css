@@ -1,0 +1,219 @@
+/**
+ * Content CSS (content.css)
+ * 
+ * Contains styles for elements injected by the content script
+ * These styles are isolated from the target website to avoid conflicts
+ */
+
+/* Floating coupon badge */
+.coupondaddy-badge {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4b7bec;
+  color: white;
+  border-radius: 50px;
+  padding: 8px 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 2147483646;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  font-weight: 500;
+  user-select: none;
+}
+
+.coupondaddy-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.coupondaddy-badge-icon {
+  font-size: 16px;
+}
+
+/* Coupon field highlight */
+.coupondaddy-highlight {
+  box-shadow: 0 0 0 2px #4b7bec, 0 0 20px rgba(75, 123, 236, 0.5) !important;
+  border-color: #4b7bec !important;
+  transition: all 0.3s ease !important;
+  z-index: 100 !important;
+  position: relative !important;
+}
+
+/* Coupon dropdown overlay */
+.coupondaddy-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2147483646;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.coupondaddy-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.coupondaddy-dropdown {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 380px;
+  max-width: 95vw;
+  max-height: 80vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(20px) scale(0.98);
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.coupondaddy-overlay.visible .coupondaddy-dropdown {
+  transform: translateY(0) scale(1);
+}
+
+.coupondaddy-dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #ebeef2;
+}
+
+.coupondaddy-dropdown-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2f3542;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.coupondaddy-dropdown-title img {
+  width: 24px;
+  height: 24px;
+}
+
+.coupondaddy-dropdown-close {
+  background: none;
+  border: none;
+  color: #747d8c;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.coupondaddy-dropdown-close:hover {
+  background-color: #f5f6fa;
+  color: #2f3542;
+}
+
+.coupondaddy-dropdown-body {
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.coupondaddy-dropdown-footer {
+  padding: 16px 20px;
+  border-top: 1px solid #ebeef2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.coupondaddy-notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4b7bec;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  max-width: 300px;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.coupondaddy-notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.coupondaddy-notification-icon {
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.coupondaddy-notification-content {
+  flex: 1;
+}
+
+.coupondaddy-notification-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.coupondaddy-notification-message {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.coupondaddy-notification-close {
+  background: none;
+  border: none;
+  color: white;
+  opacity: 0.7;
+  cursor: pointer;
+  padding: 5px;
+  margin-left: 8px;
+  transition: opacity 0.2s;
+}
+
+.coupondaddy-notification-close:hover {
+  opacity: 1;
+}
+
+/* Coupon item in dropdown */
+.coupondaddy-coupon-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid #ebeef2;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.coupondaddy-coupon-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+  border-color: #4b7bec;
+}
+
+.coupondaddy-coupon-item:last-child {
+  margin-

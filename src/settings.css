@@ -1,0 +1,362 @@
+ /**
+ * Settings Page Styles
+ * Modern, clean design for CouponDaddy settings page
+ */
+
+:root {
+    --primary-color: #4b7bec;
+    --primary-hover: #3867d6;
+    --secondary-color: #ff9f43;
+    --secondary-hover: #ee8d2d;
+    --success-color: #20bf6b;
+    --danger-color: #eb3b5a;
+    --text-color: #2f3542;
+    --text-light: #747d8c;
+    --background-color: #f5f6fa;
+    --card-background: #ffffff;
+    --border-color: #dfe4ea;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --transition: all 0.25s ease;
+    --border-radius: 10px;
+    --section-spacing: 32px;
+  }
+  
+  /* Dark mode variables */
+  .dark-mode {
+    --primary-color: #5f85e8;
+    --primary-hover: #6a8ff9;
+    --secondary-color: #ffa752;
+    --secondary-hover: #ffb066;
+    --text-color: #f5f6fa;
+    --text-light: #a4b0be;
+    --background-color: #1e272e;
+    --card-background: #2f3542;
+    --border-color: #57606f;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    padding: 40px 20px;
+    transition: var(--transition);
+  }
+  
+  .settings-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+  }
+  
+  /* Header styles */
+  .settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 32px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .logo img {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .logo h1 {
+    font-size: 24px;
+    font-weight: 600;
+  }
+  
+  .version {
+    font-size: 14px;
+    color: var(--text-light);
+    font-weight: 500;
+  }
+  
+  /* Main content styles */
+  .settings-main {
+    padding: 32px;
+    flex: 1;
+  }
+  
+  .settings-section {
+    margin-bottom: var(--section-spacing);
+  }
+  
+  .settings-section:last-child {
+    margin-bottom: 0;
+  }
+  
+  .settings-section h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    padding-bottom: 10px;
+  }
+  
+  .settings-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 3px;
+  }
+  
+  /* Settings option styles */
+  .settings-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .settings-option:last-child {
+    border-bottom: none;
+  }
+  
+  .option-info {
+    flex: 1;
+    padding-right: 20px;
+  }
+  
+  .option-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+  
+  .option-title i {
+    color: var(--primary-color);
+    font-size: 18px;
+    width: 24px;
+    text-align: center;
+  }
+  
+  .option-description {
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.4;
+  }
+  
+  /* Toggle switch styles */
+  .toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+  
+  .toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--border-color);
+    transition: var(--transition);
+    border-radius: 34px;
+  }
+  
+  .toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: var(--transition);
+    border-radius: 50%;
+  }
+  
+  input:checked + .toggle-slider {
+    background-color: var(--primary-color);
+  }
+  
+  input:focus + .toggle-slider {
+    box-shadow: 0 0 1px var(--primary-color);
+  }
+  
+  input:checked + .toggle-slider:before {
+    transform: translateX(24px);
+  }
+  
+  /* Data control section */
+  .data-control {
+    padding: 16px 0;
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  /* Button styles */
+  .primary-button, 
+  .secondary-button, 
+  .text-button {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: var(--transition);
+    border: none;
+  }
+  
+  .primary-button {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .primary-button:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+  }
+  
+  .secondary-button {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+  }
+  
+  .secondary-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: var(--text-light);
+  }
+  
+  .text-button {
+    background-color: transparent;
+    color: var(--text-light);
+    padding: 10px 0;
+  }
+  
+  .text-button:hover {
+    color: var(--text-color);
+  }
+  
+  /* Footer styles */
+  .settings-footer {
+    padding: 24px 32px;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .copyright {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-light);
+  }
+  
+  .copyright a {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+  
+  .copyright a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Save notification */
+  .save-notification {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background-color: var(--success-color);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1000;
+  }
+  
+  .save-notification.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 600px) {
+    .settings-main {
+      padding: 24px;
+    }
+  
+    .settings-header {
+      padding: 20px 24px;
+    }
+  
+    .settings-footer {
+      padding: 20px 24px;
+    }
+  
+    .option-title {
+      font-size: 15px;
+    }
+  
+    .option-description {
+      font-size: 13px;
+    }
+  }
+  
+  /* Dark mode specific styles */
+  body.dark-mode .toggle-slider:before {
+    background-color: var(--card-background);
+  }
+  
+  body.dark-mode .secondary-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
